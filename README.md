@@ -34,5 +34,5 @@ $ docker-compose up -d
 ## Ports
 Grafana: `3000`
 InfluxDB: `8083`, `8086`
-
+## JVM use Jolokia https://jolokia.org/
 
