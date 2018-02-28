@@ -1,0 +1,3261 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_SOURCETRK",
+      "label": "SourceTrk",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "alertlist",
+      "name": "Alert List",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "4.6.3"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "savantly-heatmap-panel",
+      "name": "Heatmap",
+      "version": "0.2.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "refresh": "30s",
+  "rows": [
+    {
+      "collapse": false,
+      "height": 291,
+      "panels": [
+        {
+          "chartId": "chart_11",
+          "colors": [
+            "rgba(245, 54, 54, 1)",
+            "rgba(241, 255, 0, 1)",
+            "rgba(50, 172, 45, 1)"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "none",
+          "height": "100",
+          "hideTimeOverride": true,
+          "id": 11,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false
+          },
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp01.ccu.cl",
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "maxDataPoints": 100,
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "repeat": null,
+          "seriesOverrides": [],
+          "span": 3,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp01.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "available_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp01.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      " *-1+100"
+                    ],
+                    "type": "math"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp01.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "20,30,40",
+          "title": "trkwlapp01",
+          "transparent": true,
+          "treeMap": {
+            "aggregationFunction": "mean",
+            "colorByFunction": "current",
+            "debug": false,
+            "depth": 0,
+            "enableGrouping": true,
+            "enableTimeBlocks": true,
+            "groups": [
+              {
+                "key": "server",
+                "value": "/^.*./g"
+              }
+            ],
+            "ids": [
+              "alias"
+            ],
+            "mode": "slice",
+            "nodeSizeProperty": "value",
+            "showLegend": false,
+            "sizeByFunction": "count",
+            "timestampFormat": "YYYY-MM-DD:HH:MM"
+          },
+          "type": "savantly-heatmap-panel",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "hideTimeOverride": false,
+          "id": 1,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "includeVars": false,
+              "keepTime": false,
+              "params": "var-server=trkwlapp01.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "#508642",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"usage_idle\") * -1 + 100 FROM \"cpu\" WHERE (\"host\" =~ /^$server$/ AND \"cpu\" = 'cpu-total') AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "* -1 + 100"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp01.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Cpu trkwlapp01",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 7,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp01.ccu.cl",
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp01.ccu.cl"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Memoria trkwlapp01",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 12,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp01.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp01.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Disk trkwlapp01",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "chartId": "chart_21",
+          "colors": [
+            "rgba(245, 54, 54, 1)",
+            "rgba(241, 255, 0, 1)",
+            "rgba(50, 172, 45, 1)"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "none",
+          "height": "100",
+          "hideTimeOverride": true,
+          "id": 21,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false
+          },
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp02.ccu.cl",
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "maxDataPoints": 100,
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "seriesOverrides": [],
+          "span": 3,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp02.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "available_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp02.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      " *-1+100"
+                    ],
+                    "type": "math"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp02.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "20,30,40",
+          "title": "trkwlapp02",
+          "transparent": true,
+          "treeMap": {
+            "aggregationFunction": "mean",
+            "colorByFunction": "current",
+            "debug": false,
+            "depth": 0,
+            "enableGrouping": true,
+            "enableTimeBlocks": true,
+            "groups": [
+              {
+                "key": "server",
+                "value": "/^.*./g"
+              }
+            ],
+            "ids": [
+              "alias"
+            ],
+            "mode": "slice",
+            "nodeSizeProperty": "value",
+            "showLegend": false,
+            "sizeByFunction": "count",
+            "timestampFormat": "YYYY-MM-DD:HH:MM"
+          },
+          "type": "savantly-heatmap-panel",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "hideTimeOverride": false,
+          "id": 14,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "includeVars": false,
+              "keepTime": false,
+              "params": "var-server=trkwlapp01.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "#508642",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"usage_idle\") * -1 + 100 FROM \"cpu\" WHERE (\"host\" =~ /^$server$/ AND \"cpu\" = 'cpu-total') AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "* -1 + 100"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp02.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Cpu trkwlapp02",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 15,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp02.ccu.cl",
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp02.ccu.cl"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Memoria trkwlapp02",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 16,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp02.ccu.cl",
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp02.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Disk trkwlapp02",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "chartId": "chart_22",
+          "colors": [
+            "rgba(245, 54, 54, 1)",
+            "rgba(241, 255, 0, 1)",
+            "rgba(50, 172, 45, 1)"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "none",
+          "height": "100",
+          "hideTimeOverride": true,
+          "id": 22,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false
+          },
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp03.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "maxDataPoints": 100,
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "seriesOverrides": [],
+          "span": 3,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp03.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "available_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp03.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      " *-1+100"
+                    ],
+                    "type": "math"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp03.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "20,30,40",
+          "title": "trkwlapp03",
+          "transparent": true,
+          "treeMap": {
+            "aggregationFunction": "mean",
+            "colorByFunction": "current",
+            "debug": false,
+            "depth": 0,
+            "enableGrouping": true,
+            "enableTimeBlocks": true,
+            "groups": [
+              {
+                "key": "server",
+                "value": "/^.*./g"
+              }
+            ],
+            "ids": [
+              "alias"
+            ],
+            "mode": "slice",
+            "nodeSizeProperty": "value",
+            "showLegend": false,
+            "sizeByFunction": "count",
+            "timestampFormat": "YYYY-MM-DD:HH:MM"
+          },
+          "type": "savantly-heatmap-panel",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "hideTimeOverride": false,
+          "id": 18,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "includeVars": false,
+              "keepTime": false,
+              "params": "var-server=trkwlapp03.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "#508642",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"usage_idle\") * -1 + 100 FROM \"cpu\" WHERE (\"host\" =~ /^$server$/ AND \"cpu\" = 'cpu-total') AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "* -1 + 100"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp03.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Cpu trkwlapp03",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 19,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp03.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp03.ccu.cl"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Memoria trkwlapp03",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 20,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp03.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp03.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Disk trkwlapp03",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "chartId": "chart_23",
+          "colors": [
+            "rgba(245, 54, 54, 1)",
+            "rgba(241, 255, 0, 1)",
+            "rgba(50, 172, 45, 1)"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "none",
+          "height": "100",
+          "hideTimeOverride": true,
+          "id": 23,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false
+          },
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp04.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "maxDataPoints": 100,
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "seriesOverrides": [],
+          "span": 3,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp04.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "available_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp04.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      " *-1+100"
+                    ],
+                    "type": "math"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp04.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "20,30,40",
+          "title": "trkwlapp04",
+          "transparent": true,
+          "treeMap": {
+            "aggregationFunction": "mean",
+            "colorByFunction": "current",
+            "debug": false,
+            "depth": 0,
+            "enableGrouping": true,
+            "enableTimeBlocks": true,
+            "groups": [
+              {
+                "key": "server",
+                "value": "/^.*./g"
+              }
+            ],
+            "ids": [
+              "alias"
+            ],
+            "mode": "slice",
+            "nodeSizeProperty": "value",
+            "showLegend": false,
+            "sizeByFunction": "count",
+            "timestampFormat": "YYYY-MM-DD:HH:MM"
+          },
+          "type": "savantly-heatmap-panel",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "hideTimeOverride": false,
+          "id": 24,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "includeVars": false,
+              "keepTime": false,
+              "params": "var-server=trkwlapp04.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "#508642",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"usage_idle\") * -1 + 100 FROM \"cpu\" WHERE (\"host\" =~ /^$server$/ AND \"cpu\" = 'cpu-total') AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "* -1 + 100"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp04.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Cpu trkwlapp04",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 25,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp04.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp04.ccu.cl"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Memoria trkwlapp04",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 26,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp04.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp04.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Disk trkwlapp04",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "chartId": "chart_27",
+          "colors": [
+            "rgba(245, 54, 54, 1)",
+            "rgba(241, 255, 0, 1)",
+            "rgba(50, 172, 45, 1)"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "none",
+          "height": "100",
+          "hideTimeOverride": true,
+          "id": 27,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false
+          },
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp05.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "maxDataPoints": 100,
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "seriesOverrides": [],
+          "span": 3,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp05.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "available_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp05.ccu.cl"
+                }
+              ]
+            },
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1h"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      " *-1+100"
+                    ],
+                    "type": "math"
+                  },
+                  {
+                    "params": [
+                      "Free"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp05.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "20,30,40",
+          "title": "trkwlapp05",
+          "transparent": true,
+          "treeMap": {
+            "aggregationFunction": "mean",
+            "colorByFunction": "current",
+            "debug": false,
+            "depth": 0,
+            "enableGrouping": true,
+            "enableTimeBlocks": true,
+            "groups": [
+              {
+                "key": "server",
+                "value": "/^.*./g"
+              }
+            ],
+            "ids": [
+              "alias"
+            ],
+            "mode": "slice",
+            "nodeSizeProperty": "value",
+            "showLegend": false,
+            "sizeByFunction": "count",
+            "timestampFormat": "YYYY-MM-DD:HH:MM"
+          },
+          "type": "savantly-heatmap-panel",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ]
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "hideTimeOverride": false,
+          "id": 28,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "includeVars": false,
+              "keepTime": false,
+              "params": "var-server=trkwlapp05.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "#508642",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "cpu",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"usage_idle\") * -1 + 100 FROM \"cpu\" WHERE (\"host\" =~ /^$server$/ AND \"cpu\" = 'cpu-total') AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "usage_idle"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "* -1 + 100"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp05.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpu",
+                  "operator": "=",
+                  "value": "cpu-total"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Cpu trkwlapp05",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 29,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp05.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "mem",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp05.ccu.cl"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Memoria trkwlapp05",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_SOURCETRK}",
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": true,
+            "thresholdMarkers": true
+          },
+          "height": "150",
+          "id": 30,
+          "interval": null,
+          "links": [
+            {
+              "dashUri": "db/telegraf-system-dashboard",
+              "dashboard": "Telegraf: system dashboard",
+              "params": "var-server=trkwlapp05.ccu.cl",
+              "targetBlank": true,
+              "title": "Telegraf: system dashboard",
+              "type": "dashboard"
+            }
+          ],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 5,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "5m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "disk",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT last(\"used_percent\") FROM \"mem\" WHERE (\"host\" =~ /^$server$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "used_percent"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "host",
+                  "operator": "=",
+                  "value": "trkwlapp05.ccu.cl"
+                },
+                {
+                  "condition": "AND",
+                  "key": "path",
+                  "operator": "=",
+                  "value": "/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "70,80,90",
+          "title": "Disk trkwlapp05",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "id": 31,
+          "limit": 10,
+          "links": [],
+          "onlyAlertsOnDashboard": false,
+          "show": "current",
+          "sortOrder": 1,
+          "span": 12,
+          "stateFilter": [],
+          "title": "Alertas",
+          "type": "alertlist"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    }
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "OverView Truck",
+  "version": 130
+}
